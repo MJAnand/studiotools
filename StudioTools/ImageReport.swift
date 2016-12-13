@@ -18,6 +18,7 @@ class ImageReport : NSObject
        
         var myScript: String = "with timeout of 604800 seconds\n"
         myScript += "tell application \"Adobe InDesign CC 2015\"\n"
+        myScript +=  "set user interaction level of script preferences to never interact \n"
         myScript += "activate\n"
         myScript += "set js to \"#include '\"\n"
         myScript += "set js to js & \"\(String(bundlepath))/Contents/Resources/ImageReport.jsx';\"\n"

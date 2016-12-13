@@ -352,6 +352,7 @@ public class ViewController: NSViewController {
                     for file in filesCollection {
                         filesForArgs += "\"\(file.filePath)\(file.fileName).\(file.fileType)\"" + ", "
                     }
+               // print(filesForArgs)
                     //trim the last two chars from the string - the last entry doesn't need ", "
                     filesForArgs = filesForArgs.substringToIndex(filesForArgs.endIndex.predecessor())
                     filesForArgs = filesForArgs.substringToIndex(filesForArgs.endIndex.predecessor())

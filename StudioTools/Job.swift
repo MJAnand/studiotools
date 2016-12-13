@@ -105,15 +105,7 @@ public class Job : NSObject
     
     func executeImageReport(files: String)
     {
-        //addFilesToJob()
-        let filesCollection: [String] = myFiles.returnSimpleCollection()
-        var output = "ImageReport Files List: \n"
-        for file in filesCollection
-        {
-            output += file + "\n\n"
-        }
-        //let outputFolder = ImageReport(filesForArgs: files)
-        //return outputFolder
+        _ = ImageReport(filesForArgs: files)
     }
     
     
