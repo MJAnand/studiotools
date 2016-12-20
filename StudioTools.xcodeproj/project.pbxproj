@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F29C4801E0935B9007B7C6E /* PDF Export Profiles in Resources */ = {isa = PBXBuildFile; fileRef = 2F29C47F1E0935B9007B7C6E /* PDF Export Profiles */; };
 		2FE19AAE1D59C854005EB9FC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE19AAD1D59C854005EB9FC /* AppDelegate.swift */; };
 		2FE19AB01D59C854005EB9FC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE19AAF1D59C854005EB9FC /* ViewController.swift */; };
 		2FE19AB21D59C854005EB9FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2FE19AB11D59C854005EB9FC /* Assets.xcassets */; };
@@ -19,7 +20,6 @@
 		2FF932261D5A0538009ADE61 /* ConvertToPDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF932251D5A0538009ADE61 /* ConvertToPDF.swift */; };
 		2FF9322C1D5C6543009ADE61 /* SystemNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF9322B1D5C6543009ADE61 /* SystemNotifications.swift */; };
 		9B33127E1DF0881900428787 /* ImageReport.jsx in Resources */ = {isa = PBXBuildFile; fileRef = 9B33127C1DF0881900428787 /* ImageReport.jsx */; };
-		9B3312831DF0883700428787 /* PDF Export Profiles in Resources */ = {isa = PBXBuildFile; fileRef = 9B3312801DF0883700428787 /* PDF Export Profiles */; };
 		9B3312841DF0883700428787 /* Preflight Profiles in Resources */ = {isa = PBXBuildFile; fileRef = 9B3312811DF0883700428787 /* Preflight Profiles */; };
 		9B3312851DF0883700428787 /* Python in Resources */ = {isa = PBXBuildFile; fileRef = 9B3312821DF0883700428787 /* Python */; };
 		9B3312891DF0886100428787 /* ImageReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3312861DF0886100428787 /* ImageReport.swift */; };
@@ -28,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2F29C47F1E0935B9007B7C6E /* PDF Export Profiles */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "PDF Export Profiles"; sourceTree = "<group>"; };
 		2FE19AAA1D59C854005EB9FC /* StudioTools.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudioTools.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FE19AAD1D59C854005EB9FC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2FE19AAF1D59C854005EB9FC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -42,7 +43,6 @@
 		2FF932251D5A0538009ADE61 /* ConvertToPDF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvertToPDF.swift; sourceTree = "<group>"; };
 		2FF9322B1D5C6543009ADE61 /* SystemNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemNotifications.swift; sourceTree = "<group>"; };
 		9B33127C1DF0881900428787 /* ImageReport.jsx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = ImageReport.jsx; path = "Application Support/JSX/ImageReport.jsx"; sourceTree = "<group>"; };
-		9B3312801DF0883700428787 /* PDF Export Profiles */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "PDF Export Profiles"; path = "Application Support/PDF Export Profiles"; sourceTree = "<group>"; };
 		9B3312811DF0883700428787 /* Preflight Profiles */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "Preflight Profiles"; path = "Application Support/Preflight Profiles"; sourceTree = "<group>"; };
 		9B3312821DF0883700428787 /* Python */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Python; path = "Application Support/Python"; sourceTree = "<group>"; };
 		9B3312861DF0886100428787 /* ImageReport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageReport.swift; sourceTree = "<group>"; };
@@ -128,7 +128,7 @@
 		9B33127B1DF0877700428787 /* Application Support */ = {
 			isa = PBXGroup;
 			children = (
-				9B3312801DF0883700428787 /* PDF Export Profiles */,
+				2F29C47F1E0935B9007B7C6E /* PDF Export Profiles */,
 				9B3312811DF0883700428787 /* Preflight Profiles */,
 				9B3312821DF0883700428787 /* Python */,
 			);
@@ -196,12 +196,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9B3312831DF0883700428787 /* PDF Export Profiles in Resources */,
 				9B33127E1DF0881900428787 /* ImageReport.jsx in Resources */,
 				2FE19ADB1D59CC61005EB9FC /* Images in Resources */,
 				2FE19AB21D59C854005EB9FC /* Assets.xcassets in Resources */,
 				2FE19AB51D59C854005EB9FC /* Main.storyboard in Resources */,
 				9B3312841DF0883700428787 /* Preflight Profiles in Resources */,
+				2F29C4801E0935B9007B7C6E /* PDF Export Profiles in Resources */,
 				9B3312851DF0883700428787 /* Python in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -18,6 +18,8 @@ public class ViewController: NSViewController {
     var tag = ""
     var destButtonFolder = ""
     
+    @IBOutlet weak var rdoEb300: NSButton!
+    @IBOutlet weak var rdoEb72: NSButton!
     @IBOutlet weak var chkEnableFNOverride: NSButton!
     @IBOutlet weak var chkEnableSplit: NSButton!
     @IBOutlet weak var lblFileNaming: NSTextField!
@@ -241,6 +243,16 @@ public class ViewController: NSViewController {
                                 if (chkEnableTags.state == NSOnState) { tag = " [Print Resupply]"; }
                                 if (chkSpreads.state == NSOnState) { ep = "Print Quality Output (Spreads)" }
                             }
+                            if (rdoEb72.state == NSOnState) {
+                                ep = "eBrochure72 (Pages)";
+                                if (chkEnableTags.state == NSOnState) { tag = " [72DPI eBrochure]"; }
+                                if (chkSpreads.state == NSOnState) { ep = "eBrochure72 (Spreads)" }
+                           }
+                           if (rdoEb300.state == NSOnState) {
+                               ep = "eBrochure300 (Pages)";
+                               if (chkEnableTags.state == NSOnState) { tag = " [300DPI eBrochure]"; }
+                               if (chkSpreads.state == NSOnState) { ep = "eBrochure300 (Spreads)" }
+                           }
                         
                         opf = destinationPath + file.getFileName() + ".tmp"
                         counter += step

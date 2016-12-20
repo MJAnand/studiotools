@@ -38,7 +38,7 @@ class ConvertToPDF : NSObject
                 print("[AppleScript] . errors: \(output.stringValue) \r")
         } else if (error != nil) {
             let debugtest = error.debugDescription
-            utils.displayAlert(error.debugDescription)
+            //utils.displayAlert(error.debugDescription)
             if (debugtest.rangeOfString("Cannot open the document") != nil) {
             utils.displayAlert("The File \"\(outputFilename)\" is Locked or Inaccessable and StudioTools can't continue until the lock is released. \n\nPlease check to be sure no-one else is using this file and click OK to try this file again.")
                 print("[AppleScript] . File is Locked! Restarting Push Process for this file.\n")
