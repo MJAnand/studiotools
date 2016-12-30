@@ -17,7 +17,7 @@ class ConvertToPDF : NSObject
         print("[AppleScript] . Pushing PDF to \(outputFilename) using profile: \(exportProfile) \r")
         var myScript: String = ""
         myScript +=  "with timeout of 86400 seconds \n"
-        myScript +=  "tell application \"Adobe InDesign CC 2015\" \n"
+        myScript +=  "tell application \"Adobe InDesign CC\" \n"
         myScript +=  "activate without showing window\n"
         myScript +=  "set user interaction level of script preferences to never interact \n"
         myScript +=  "set objWorkingDocument to open (\"" + inputFilename + "\") \n"

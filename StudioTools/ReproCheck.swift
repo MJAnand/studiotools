@@ -23,7 +23,8 @@ class ReproCheck : NSObject
         for file in filesForArgs {
             print(file)
             var myScript: String = "with timeout of 604800 seconds\n"
-            myScript += "tell application \"Adobe InDesign CC 2017\"\n"
+            
+            myScript += "tell application \"Adobe InDesign CC\"\n"
             myScript += "set user interaction level of script preferences to never interact\n"
             myScript += "activate without showing window\n"
             myScript += "set myProfile to preflight profile 3\n"

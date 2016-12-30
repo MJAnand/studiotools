@@ -17,7 +17,7 @@ class ImageReport : NSObject
         bundlepath = bundlepath.stringByReplacingOccurrencesOfString("NSBundle <", withString: "")
        
         var myScript: String = "with timeout of 604800 seconds\n"
-        myScript += "tell application \"Adobe InDesign CC 2015\"\n"
+        myScript += "tell application \"Adobe InDesign CC\"\n"
         myScript +=  "set user interaction level of script preferences to never interact \n"
         myScript += "activate\n"
         myScript += "set js to \"#include '\"\n"
