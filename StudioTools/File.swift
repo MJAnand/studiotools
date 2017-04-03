@@ -11,7 +11,7 @@
 
 import Foundation
 
-public class File : NSObject
+open class File : NSObject
 {
      var fileName : String = ""
      var filePath : String = ""
@@ -39,17 +39,17 @@ public class File : NSObject
         return fileType
     }
     
-    func setMyFileName(fn: String)
+    func setMyFileName(_ fn: String)
     {
         fileName = fn
     }
     
-    func setMyFilePath(fp: String)
+    func setMyFilePath(_ fp: String)
     {
         filePath = fp
     }
     
-    func setMyFileType(ft: String)
+    func setMyFileType(_ ft: String)
     {
         fileType = ft
     }

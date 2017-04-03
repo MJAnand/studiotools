@@ -48,25 +48,25 @@ class ReproCheck : NSObject
         
             if let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
             {
-                print(output.stringValue)
+                print(output.stringValue ?? " ")
             } else if (error != nil) {
-                print("error: \(error)") //BUG OUT IF ERROR
+                print("error: \(String(describing: error))") //BUG OUT IF ERROR
             }
             let oFile = file + "preflight_report.pdf"
             outputFiles.append(oFile)
         }
         
         adaptor.executeJoin(outputFiles, outputFile: (home + "/Preflight"))
-        let fileManager = NSFileManager.defaultManager()
+        let fileManager = FileManager.default
         for file in outputFiles {
             let oFile = file //+ "preflight_report.pdf"
             outputFiles.append(oFile)
-            do { try fileManager.removeItemAtPath(oFile) }
+            do { try fileManager.removeItem(atPath: oFile) }
             catch let error as NSError { print("File Deletion Failure:   \(error)") }
         }
         
         print("[ReproCheck] . Moving Report File...")
-        do { try fileManager.moveItemAtPath(home + "/Preflight.pdf" , toPath: outputFile + "Preflight_Report.pdf") }
+        do { try fileManager.moveItem(atPath: home + "/Preflight.pdf" , toPath: outputFile + "Preflight_Report.pdf") }
         catch let error as NSError { print("File Move Error!: \(error)") }
 
         

@@ -10,7 +10,7 @@ import Foundation
 
 class SystemNotifications: NSObject {
     
-    func push (message: String)
+    func push (_ message: String)
     {
         do {
             // create a User Notification
@@ -28,7 +28,7 @@ class SystemNotifications: NSObject {
             notification.actionButtonTitle = "View"
             
             // Deliver the notification through the User Notification Center
-            NSUserNotificationCenter.defaultUserNotificationCenter().deliverNotification(notification)
+            NSUserNotificationCenter.default.deliver(notification)
         }
     }
 }

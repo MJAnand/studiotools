@@ -16,7 +16,7 @@ import Foundation
 import Darwin
 import AppKit
 
-public class Job : NSObject
+open class Job : NSObject
 {
     //Load all modules for global access (we don't know at this point the requirement)
     let utils = Util()
@@ -41,16 +41,16 @@ public class Job : NSObject
         dialog.allowedFileTypes        = ["indd"]
         //utils.displayAlert("Opening")
         if (dialog.runModal() == NSModalResponseOK) {
-            let results = dialog.URLs // Pathnames of the files
+            let results = dialog.urls // Pathnames of the files
             if (results.count > 0) {
                 myFiles.removeAll()
                 for result in results
                 {
-                    path = (result.URLByDeletingLastPathComponent!.absoluteString)! as String
-                    path = path.stringByReplacingOccurrencesOfString("file://", withString: "")
-                    path = path.stringByReplacingOccurrencesOfString("%20", withString: " ")
-                    filename = result.lastPathComponent! as String
-                    filename = filename.stringByReplacingOccurrencesOfString(".indd", withString: "")
+                    path = (result.deletingLastPathComponent().absoluteString) as String
+                    path = path.replacingOccurrences(of: "file://", with: "")
+                    path = path.replacingOccurrences(of: "%20", with: " ")
+                    filename = result.lastPathComponent as String
+                    filename = filename.replacingOccurrences(of: ".indd", with: "")
                     filetype = "indd"
                     myFiles.addFile(filename, type: filetype, path: path)
                 }
@@ -78,10 +78,10 @@ public class Job : NSObject
         dialog.canChooseFiles          = false
         
         if (dialog.runModal() == NSModalResponseOK) {
-            let result = dialog.URL // Pathnames of the files
-                destination = result!.absoluteString!
-                destination = destination.stringByReplacingOccurrencesOfString("file://", withString: "")
-                destination = destination.stringByReplacingOccurrencesOfString("%20", withString: " ")
+            let result = dialog.url // Pathnames of the files
+                destination = result!.absoluteString
+                destination = destination.replacingOccurrences(of: "file://", with: "")
+                destination = destination.replacingOccurrences(of: "%20", with: " ")
         } else {
              //Error - User Canceled
         }
@@ -94,7 +94,7 @@ public class Job : NSObject
     //           return 0
     //}
     
-    func executeReproCheck(files: String) -> String
+    func executeReproCheck(_ files: String) -> String
     {
         //addFilesToJob()
         let filesCollection: [String] = myFiles.returnSimpleCollection()
@@ -103,7 +103,7 @@ public class Job : NSObject
         return outputLocation
     }
     
-    func executeImageReport(files: String)
+    func executeImageReport(_ files: String)
     {
         _ = ImageReport(filesForArgs: files)
     }

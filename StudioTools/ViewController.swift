@@ -9,7 +9,7 @@
 import Cocoa
 import Python
 
-public class ViewController: NSViewController {
+open class ViewController: NSViewController {
     let utils = Util()
     var job = Job()
     var systemNotification = SystemNotifications()
@@ -49,31 +49,31 @@ public class ViewController: NSViewController {
     @IBOutlet weak var btnReport: NSButton!
     @IBOutlet weak var rdoRetainName: NSButton!
     
-    override public func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad();
         resetWindow();
-        var aasLocation = (NSFileManager.defaultManager().URLsForDirectory(.ApplicationSupportDirectory, inDomains: .UserDomainMask)[0]).absoluteString
-        aasLocation = aasLocation!.stringByReplacingOccurrencesOfString("file://", withString: "")
-        aasLocation = aasLocation!.stringByReplacingOccurrencesOfString("%20", withString: " ")
-        aasLocation = aasLocation! + "StudioTools 2/"
+        var aasLocation = (FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]).absoluteString
+        aasLocation = aasLocation.replacingOccurrences(of: "file://", with: "")
+        aasLocation = aasLocation.replacingOccurrences(of: "%20", with: " ")
+        aasLocation = aasLocation + "StudioTools 2/"
         
-        var bundlepath = String(NSBundle.mainBundle())
-        bundlepath = bundlepath.stringByReplacingOccurrencesOfString("> (loaded)", withString: "")
-        bundlepath = bundlepath.stringByReplacingOccurrencesOfString("NSBundle <", withString: "")
+        var bundlepath = String(describing: Bundle.main)
+        bundlepath = bundlepath.replacingOccurrences(of: "> (loaded)", with: "")
+        bundlepath = bundlepath.replacingOccurrences(of: "NSBundle <", with: "")
         
-        print(aasLocation! + ", " + bundlepath + "/Contents/Resources/Application Support/")
+        print(aasLocation + ", " + bundlepath + "/Contents/Resources/Application Support/")
     }
-    override public var representedObject: AnyObject? { didSet { } }
+    override open var representedObject: Any? { didSet { } }
     
-    @IBAction func onQuit(sender: AnyObject)             { exit(0); }
-    @IBAction func onExportPDF(sender: AnyObject)        { mainButtonController(1); resetWindow()}
-    @IBAction func onPreflight(sender: AnyObject)        { mainButtonController(2); lockOptions()}
-    @IBAction func onImageReport(sender: AnyObject)      { mainButtonController(3); lockOptions()}
-    @IBAction func onClear(sender: AnyObject)            { resetWindow(); }
-    @IBAction func onExecute(sender: AnyObject)          { executeJob(); }
+    @IBAction func onQuit(_ sender: AnyObject)             { exit(0); }
+    @IBAction func onExportPDF(_ sender: AnyObject)        { mainButtonController(1); resetWindow()}
+    @IBAction func onPreflight(_ sender: AnyObject)        { mainButtonController(2); lockOptions()}
+    @IBAction func onImageReport(_ sender: AnyObject)      { mainButtonController(3); lockOptions()}
+    @IBAction func onClear(_ sender: AnyObject)            { resetWindow(); }
+    @IBAction func onExecute(_ sender: AnyObject)          { executeJob(); }
     @IBOutlet weak var rdoTag: NSButton!
     
-    func mainButtonController(ButtonID: Int)
+    func mainButtonController(_ ButtonID: Int)
     {
          switch (ButtonID) {
             case 1:    btnConvert.state = NSOnState;  btnRepro.state = NSOffState; btnReport.state = NSOffState;
@@ -83,70 +83,70 @@ public class ViewController: NSViewController {
         }
     }
     
-    @IBAction func splitOrCombine(sender: AnyObject) {
+    @IBAction func splitOrCombine(_ sender: AnyObject) {
         
         if (rdoSplitFiles.state == NSOnState) {
             rdoCombineFiles.state = NSOffState
             rdoRetainName.state = NSOffState
-            txtStartNumber.enabled = true
-            spnPgNum.enabled = true
-            chkEnableFNOverride.enabled = false
-            txtFileNameOverrideValue.enabled = false
+            txtStartNumber.isEnabled = true
+            spnPgNum.isEnabled = true
+            chkEnableFNOverride.isEnabled = false
+            txtFileNameOverrideValue.isEnabled = false
         } else if (rdoCombineFiles.state == NSOnState) {
             rdoSplitFiles.state = NSOffState
             rdoRetainName.state = NSOffState
-            txtStartNumber.enabled = false
-            spnPgNum.enabled = false
-            chkEnableFNOverride.enabled = true
-            txtFileNameOverrideValue.enabled = false
+            txtStartNumber.isEnabled = false
+            spnPgNum.isEnabled = false
+            chkEnableFNOverride.isEnabled = true
+            txtFileNameOverrideValue.isEnabled = false
         } else {
             rdoCombineFiles.state = NSOffState
             rdoSplitFiles.state = NSOffState
-            txtStartNumber.enabled = false
-            spnPgNum.enabled = false
-            chkEnableFNOverride.enabled = false
-            txtFileNameOverrideValue.enabled = false
+            txtStartNumber.isEnabled = false
+            spnPgNum.isEnabled = false
+            chkEnableFNOverride.isEnabled = false
+            txtFileNameOverrideValue.isEnabled = false
         }
     }
     
-    @IBAction func onSpin(sender: AnyObject) {
+    @IBAction func onSpin(_ sender: AnyObject) {
         txtStartNumber.stringValue = String(spnPgNum.stringValue)
         if (txtStartNumber.stringValue.characters.count < 2) { txtStartNumber.stringValue = "00" + txtStartNumber.stringValue; }
         if (txtStartNumber.stringValue.characters.count < 3) { txtStartNumber.stringValue = "0" + txtStartNumber.stringValue;  }
     }
     
-    @IBAction func fnOverrideEnabler(sender: AnyObject) {
-        if (chkEnableFNOverride.state == 1) { txtFileNameOverrideValue.enabled = true; txtFileNameOverrideValue.stringValue = ""; }
-        if (chkEnableFNOverride.state == 0) { txtFileNameOverrideValue.enabled = false; txtFileNameOverrideValue.stringValue = "Enter New Name"; }
+    @IBAction func fnOverrideEnabler(_ sender: AnyObject) {
+        if (chkEnableFNOverride.state == 1) { txtFileNameOverrideValue.isEnabled = true; txtFileNameOverrideValue.stringValue = ""; }
+        if (chkEnableFNOverride.state == 0) { txtFileNameOverrideValue.isEnabled = false; txtFileNameOverrideValue.stringValue = "Enter New Name"; }
     }
     
     func resetWindow()
     {
         mainButtonController(1)
         txtFileNameOverrideValue.stringValue = "Enter New Name"
-        txtFileNameOverrideValue.enabled = false
+        txtFileNameOverrideValue.isEnabled = false
         txtStartNumber.stringValue = "001"
-        txtStartNumber.enabled = false
-        spnPgNum.enabled = false
-        lblProcessPercentage.hidden = true
-        pbProgress.hidden = true
+        txtStartNumber.isEnabled = false
+        spnPgNum.isEnabled = false
+        lblProcessPercentage.isHidden = true
+        pbProgress.isHidden = true
         lblStatus.stringValue = "Welcome to Studiotools..."
         rdoCombineFiles.state = NSOffState
-        rdoCombineFiles.enabled = true
+        rdoCombineFiles.isEnabled = true
         rdoSplitFiles.state = NSOffState
-        rdoSplitFiles.enabled = true
+        rdoSplitFiles.isEnabled = true
         rdoRetainName.state = NSOnState
-        rdoRetainName.enabled = true
+        rdoRetainName.isEnabled = true
         chkEnableTags.state = NSOffState
-        chkEnableTags.enabled = true
-        chkEnableFNOverride.enabled = true
-        chkSpreads.enabled = true
-        rdoTag1st.enabled = true
-        rdoTag2nd.enabled = true
-        rdoTag3rd.enabled = true
-        rdoTagFinal.enabled = true
-        rdoTagPrint.enabled = true
-        rdoTagResupply.enabled = true
+        chkEnableTags.isEnabled = true
+        chkEnableFNOverride.isEnabled = true
+        chkSpreads.isEnabled = true
+        rdoTag1st.isEnabled = true
+        rdoTag2nd.isEnabled = true
+        rdoTag3rd.isEnabled = true
+        rdoTagFinal.isEnabled = true
+        rdoTagPrint.isEnabled = true
+        rdoTagResupply.isEnabled = true
         fileTag = ""
         //lblPageNumbering color change
 
@@ -155,25 +155,25 @@ public class ViewController: NSViewController {
     func lockOptions()
     {
         txtFileNameOverrideValue.stringValue = "Enter New Name"
-        txtFileNameOverrideValue.enabled = false
+        txtFileNameOverrideValue.isEnabled = false
         txtStartNumber.stringValue = "001"
-        txtStartNumber.enabled = false
-        spnPgNum.enabled = false
-        lblProcessPercentage.hidden = true
-        pbProgress.hidden = true
+        txtStartNumber.isEnabled = false
+        spnPgNum.isEnabled = false
+        lblProcessPercentage.isHidden = true
+        pbProgress.isHidden = true
         lblStatus.stringValue = "Welcome to Studiotools..."
-        rdoTag1st.enabled = false
-        rdoTag2nd.enabled = false
-        rdoTag3rd.enabled = false
-        rdoTagFinal.enabled = false
-        rdoTagPrint.enabled = false
-        rdoTagResupply.enabled = false
-        rdoCombineFiles.enabled = false
-        rdoSplitFiles.enabled = false
-        chkEnableTags.enabled = false
-        chkEnableFNOverride.enabled = false
-        chkSpreads.enabled = false
-        rdoRetainName.enabled = false
+        rdoTag1st.isEnabled = false
+        rdoTag2nd.isEnabled = false
+        rdoTag3rd.isEnabled = false
+        rdoTagFinal.isEnabled = false
+        rdoTagPrint.isEnabled = false
+        rdoTagResupply.isEnabled = false
+        rdoCombineFiles.isEnabled = false
+        rdoSplitFiles.isEnabled = false
+        chkEnableTags.isEnabled = false
+        chkEnableFNOverride.isEnabled = false
+        chkSpreads.isEnabled = false
+        rdoRetainName.isEnabled = false
         fileTag = ""
         //lblPageNumbering color change
     }
@@ -192,8 +192,8 @@ public class ViewController: NSViewController {
                 {
                     let converter = ConvertToPDF()
                     let step = floor(Double((100/(filesCollection.count))))
-                    pbProgress.hidden = false
-                    lblProcessPercentage.hidden = false
+                    pbProgress.isHidden = false
+                    lblProcessPercentage.isHidden = false
                     pbProgress.minValue = 0
                     pbProgress.maxValue = 100
                     var counter: Double = 0
@@ -256,7 +256,7 @@ public class ViewController: NSViewController {
                         
                         opf = destinationPath + file.getFileName() + ".tmp"
                         counter += step
-                        pbProgress.incrementBy(step)
+                        pbProgress.increment(by: step)
                         lblProcessPercentage.stringValue = (String(format:"%.0f", counter) + "%")
                         outputFiles.append(opf)
                         converter.convertFile(fn, outputFilename: opf, exportProfile: ep)
@@ -266,19 +266,19 @@ public class ViewController: NSViewController {
                         lblStatus.stringValue = "Post-Processing: Combining files..."
                         if (chkEnableFNOverride.state == NSOnState) {
                             adaptor.executeJoin(outputFiles, outputFile: (destinationPath + txtFileNameOverrideValue.stringValue + tag))
-                            let fileManager = NSFileManager.defaultManager()
+                            let fileManager = FileManager.default
                             print("[ViewController] . Erasing .tmp Files...")
                             for file in outputFiles {
-                                do { try fileManager.removeItemAtPath(file) }
+                                do { try fileManager.removeItem(atPath: file) }
                                 catch let error as NSError { print("[ViewController] . File Deletion Failure:   \(error)") }
                             }
 
                     } else if (rdoCombineFiles.state == NSOnState) {
                             adaptor.executeJoin(outputFiles, outputFile: (destinationPath + filesCollection[0].fileName + tag))
-                            let fileManager = NSFileManager.defaultManager()
+                            let fileManager = FileManager.default
                             print("[ViewController] . Erasing .tmp Files...")
                             for file in outputFiles {
-                                do { try fileManager.removeItemAtPath(file) }
+                                do { try fileManager.removeItem(atPath: file) }
                                 catch let error as NSError { print("[ViewController] . File Deletion Failure:   \(error)") }
                             }
                     }
@@ -287,36 +287,36 @@ public class ViewController: NSViewController {
                     if (rdoSplitFiles.state == NSOnState) {
                         lblStatus.stringValue = "Post-Processing: Breaking down..."
                         adaptor.executeJoin(outputFiles, outputFile: (destinationPath + filesCollection[0].fileName + tag))
-                        let fileManager = NSFileManager.defaultManager()
+                        let fileManager = FileManager.default
                         for file in outputFiles {
-                            do { try fileManager.removeItemAtPath(file) }
+                            do { try fileManager.removeItem(atPath: file) }
                             catch let error as NSError { print("[ViewController] . File Deletion Failure:   \(error)") }
                         }
                         adaptor.executeSplit((destinationPath + filesCollection[0].fileName + tag), startNumber: startNum)
-                        do { try fileManager.removeItemAtPath(destinationPath + filesCollection[0].fileName + tag + ".pdf") }
+                        do { try fileManager.removeItem(atPath: destinationPath + filesCollection[0].fileName + tag + ".pdf") }
                             catch let error as NSError { print("[ViewController] . File Deletion Failure:   \(error)") }
                         }
                     }
                 
                 if (rdoRetainName.state == NSOnState){
-                    let fileManager = NSFileManager.defaultManager()
+                    let fileManager = FileManager.default
                     for file in filesCollection {
                         print("[ViewController] . Renaming .tmp Files...")
-                        do { try fileManager.moveItemAtPath(destinationPath + file.getFileName() + ".tmp" , toPath: destinationPath + file.getFileName() + tag + ".pdf") }
+                        do { try fileManager.moveItem(atPath: destinationPath + file.getFileName() + ".tmp" , toPath: destinationPath + file.getFileName() + tag + ".pdf") }
                             catch _ as NSError { print("[ViewController] . File Rename Error!: Item alredy exists")
                                 do {
                                 print("[ViewController] . Removing Item and resaving...")
-                                try fileManager.removeItemAtPath(destinationPath + file.getFileName() + tag + ".pdf")
-                                try fileManager.moveItemAtPath(destinationPath + file.getFileName() + ".tmp" , toPath: destinationPath + file.getFileName() + tag + ".pdf")
+                                try fileManager.removeItem(atPath: destinationPath + file.getFileName() + tag + ".pdf")
+                                try fileManager.moveItem(atPath: destinationPath + file.getFileName() + ".tmp" , toPath: destinationPath + file.getFileName() + tag + ".pdf")
                                 }
                                 catch _ as NSError { print("[ViewController] . File replace error, either you don't have permission or the item no longer exists. Please check the destination folder and try again.") }
                             }
                     }
                 }
                 if (chkEnableFNOverride.state == NSOnState) {
-                    let fileManager = NSFileManager.defaultManager()
+                    let fileManager = FileManager.default
                         print("[ViewController] . Renaming .tmp Files...")
-                        do { try fileManager.moveItemAtPath((destinationPath + filesCollection[0].fileName + tag) + ".pdf" , toPath: destinationPath + txtFileNameOverrideValue.stringValue + tag + ".pdf") }
+                        do { try fileManager.moveItem(atPath: (destinationPath + filesCollection[0].fileName + tag) + ".pdf" , toPath: destinationPath + txtFileNameOverrideValue.stringValue + tag + ".pdf") }
                         catch let error as NSError { print("File Rename Error!: \(error)")
                     }
                 }
@@ -326,7 +326,7 @@ public class ViewController: NSViewController {
                     lblStatus.stringValue = "Process Complete."
                     print("[ViewController] . Complete.")
                     destButtonFolder = destinationPath
-                    systemNotification.push("Convert to PDF process complete.")
+                    //systemNotification.push("Convert to PDF process complete.")
                 } else{
                     lblStatus.stringValue = "Cancelled at destination selection."
                 }
@@ -345,8 +345,8 @@ public class ViewController: NSViewController {
                     filesForArgs += "\"\(file.filePath)\(file.fileName).\(file.fileType)\"" + ", "
                 }
                 //trim the last two chars from the string - the last entry doesn't need ", "
-                filesForArgs = filesForArgs.substringToIndex(filesForArgs.endIndex.predecessor())
-                filesForArgs = filesForArgs.substringToIndex(filesForArgs.endIndex.predecessor())
+                filesForArgs = filesForArgs.substring(to: filesForArgs.characters.index(before: filesForArgs.endIndex))
+                filesForArgs = filesForArgs.substring(to: filesForArgs.characters.index(before: filesForArgs.endIndex))
                 destButtonFolder = job.executeReproCheck(filesForArgs)
                 resetWindow()
                 systemNotification.push("Your Preflight is complete.")
@@ -366,8 +366,8 @@ public class ViewController: NSViewController {
                     }
                // print(filesForArgs)
                     //trim the last two chars from the string - the last entry doesn't need ", "
-                    filesForArgs = filesForArgs.substringToIndex(filesForArgs.endIndex.predecessor())
-                    filesForArgs = filesForArgs.substringToIndex(filesForArgs.endIndex.predecessor())
+                    filesForArgs = filesForArgs.substring(to: filesForArgs.characters.index(before: filesForArgs.endIndex))
+                    filesForArgs = filesForArgs.substring(to: filesForArgs.characters.index(before: filesForArgs.endIndex))
                     job.executeImageReport(filesForArgs)
                     resetWindow()
                     destButtonFolder = ""
@@ -377,11 +377,11 @@ public class ViewController: NSViewController {
         
     }
     
-    @IBAction func enableTagging(sender: AnyObject) {
+    @IBAction func enableTagging(_ sender: AnyObject) {
             }
     
     
-    @IBAction func selectFileTag(sender: AnyObject) {
+    @IBAction func selectFileTag(_ sender: AnyObject) {
         if (rdoTag1st.state == NSOnState)       { fileTag = " [1st Approval]";   }
         if (rdoTag2nd.state == NSOnState)       { fileTag = " [2nd Approval]";   }
         if (rdoTag3rd.state == NSOnState)       { fileTag = " [3rd Approval]";   }
@@ -391,9 +391,9 @@ public class ViewController: NSViewController {
         
     }
     
-    @IBAction func btnOpenLoc(sender: AnyObject) {
+    @IBAction func btnOpenLoc(_ sender: AnyObject) {
         
-        NSWorkspace.sharedWorkspace().selectFile(nil, inFileViewerRootedAtPath: destButtonFolder)
+        NSWorkspace.shared().selectFile(nil, inFileViewerRootedAtPath: destButtonFolder)
         
     }
     

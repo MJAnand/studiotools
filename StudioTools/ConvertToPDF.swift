@@ -12,7 +12,7 @@ import Foundation
 class ConvertToPDF : NSObject
 {
     let utils = Util()
-    func convertFile(inputFilename: String, outputFilename: String, exportProfile: String)
+    func convertFile(_ inputFilename: String, outputFilename: String, exportProfile: String)
     {
         print("[AppleScript] . Pushing PDF to \(outputFilename) using profile: \(exportProfile) \r")
         var myScript: String = ""
@@ -35,11 +35,11 @@ class ConvertToPDF : NSObject
         
         if let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(
             &error) {
-                print("[AppleScript] . errors: \(output.stringValue) \r")
+                print("[AppleScript] . errors: \(String(describing: output.stringValue)) \r")
         } else if (error != nil) {
             let debugtest = error.debugDescription
             //utils.displayAlert(error.debugDescription)
-            if (debugtest.rangeOfString("Cannot open the document") != nil) {
+            if (debugtest.range(of: "Cannot open the document") != nil) {
             utils.displayAlert("The File \"\(outputFilename)\" is Locked or Inaccessable and StudioTools can't continue until the lock is released. \n\nPlease check to be sure no-one else is using this file and click OK to try this file again.")
                 print("[AppleScript] . File is Locked! Restarting Push Process for this file.\n")
                 self.convertFile(inputFilename, outputFilename: outputFilename, exportProfile: exportProfile)

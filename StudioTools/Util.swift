@@ -30,11 +30,11 @@ class Util: NSObject {
         @updated 2016-01-08
     
     */
-    func convertNSDateToString(theDate: NSDate) -> String {
+    func convertNSDateToString(_ theDate: Date) -> String {
         
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy"
-        let date = dateFormatter.stringFromDate(theDate)
+        let date = dateFormatter.string(from: theDate)
         return date
     }
     
@@ -48,11 +48,11 @@ class Util: NSObject {
         @updated 2016-01-08
     
     */
-    func convertStringToNSDate(theDate: String) -> NSDate {
+    func convertStringToNSDate(_ theDate: String) -> Date {
         
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy"
-        let stringDate = dateFormatter.dateFromString(theDate)
+        let stringDate = dateFormatter.date(from: theDate)
         return stringDate!
     }
     
@@ -65,11 +65,11 @@ class Util: NSObject {
         @updated 2016-01-08
     
     */
-    func displayAlert(alertText: String){
+    func displayAlert(_ alertText: String){
         let myPopup: NSAlert = NSAlert()
         myPopup.messageText = alertText
         myPopup.informativeText = ""
-        myPopup.alertStyle = NSAlertStyle.Warning
+        myPopup.alertStyle = NSAlertStyle.warning
         myPopup.runModal()
     }
     
@@ -83,7 +83,7 @@ class Util: NSObject {
         @updated 2016-01-08
     
     */
-    func intToString(number: Int) -> String{
+    func intToString(_ number: Int) -> String{
         let num2 = number as NSNumber
         return num2.stringValue
     }
@@ -98,7 +98,7 @@ class Util: NSObject {
         @updated 2016-01-08
     
     */
-    func convertBoolToString(theValue: Bool) -> String {
+    func convertBoolToString(_ theValue: Bool) -> String {
         
         switch theValue {
         

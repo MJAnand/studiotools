@@ -12,16 +12,16 @@ class ImageReport : NSObject
 {
     init(filesForArgs: String) {
         
-        var bundlepath = String(NSBundle.mainBundle())
-        bundlepath = bundlepath.stringByReplacingOccurrencesOfString("> (loaded)", withString: "")
-        bundlepath = bundlepath.stringByReplacingOccurrencesOfString("NSBundle <", withString: "")
+        var bundlepath = String(describing: Bundle.main)
+        bundlepath = bundlepath.replacingOccurrences(of: "> (loaded)", with: "")
+        bundlepath = bundlepath.replacingOccurrences(of: "NSBundle <", with: "")
        
         var myScript: String = "with timeout of 604800 seconds\n"
         myScript += "tell application \"Adobe InDesign CC\"\n"
         myScript +=  "set user interaction level of script preferences to never interact \n"
         myScript += "activate\n"
         myScript += "set js to \"#include '\"\n"
-        myScript += "set js to js & \"\(String(bundlepath))/Contents/Resources/ImageReport.jsx';\"\n"
+        myScript += "set js to js & \"\(String(describing: String(bundlepath)))/Contents/Resources/ImageReport.jsx';\"\n"
         myScript += "set js to js & \"main(arguments);\"\n"
         myScript += "do script js with arguments {\(filesForArgs)} language javascript\n"
         myScript += "end tell\n"
@@ -32,9 +32,9 @@ class ImageReport : NSObject
         
         if let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(
             &error) {
-                print(output.stringValue)
+                print(output.stringValue ?? " ")
         } else if (error != nil) {
-            print("error: \(error)")
+            print("error: \(String(describing: error))")
         }
         
     }

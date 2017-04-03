@@ -11,17 +11,17 @@
 
 import Foundation
 
-public class Files : NSObject
+open class Files : NSObject
 {
     var filesList: [File] = []
     
-    func addFile(name: String, type: String, path: String){
+    func addFile(_ name: String, type: String, path: String){
         filesList.append(File(fn: name, ft: type, fp: path))
     }
     
-    func removeFile(index: Int)
+    func removeFile(_ index: Int)
     {
-        filesList.removeAtIndex(index)
+        filesList.remove(at: index)
     }
     
     func removeAll()
@@ -43,7 +43,7 @@ public class Files : NSObject
         return filesList.count
     }
     
-    func returnFileAtIndex(index: Int) -> File
+    func returnFileAtIndex(_ index: Int) -> File
     {
         return filesList[index]
     }

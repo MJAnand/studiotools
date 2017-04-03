@@ -12,11 +12,11 @@ class PythonAdaptor: NSObject {
     
     let utils = Util()
     
-    func executeJoin(inputFiles: [String], outputFile: String) {
+    func executeJoin(_ inputFiles: [String], outputFile: String) {
     
         print("[PythonAdaptor] . Launching Script: /Library/Application Support/Studiotools 2/Python/join.py \r")
         print("[PythonAdaptor] . Combining PDF Files to: \(outputFile).pdf \r")
-        let task = NSTask()
+        let task = Process()
         task.launchPath = "/usr/bin/python"
         var args = ["/Library/Application Support/Studiotools 2/Python/join.py", "-v", "-o", "\(outputFile).pdf"]
         for file in inputFiles { args.append(file) }
@@ -26,11 +26,11 @@ class PythonAdaptor: NSObject {
         task.waitUntilExit()
     }
     
-    func executeSplit(inputFile: String, startNumber: Int) {
+    func executeSplit(_ inputFile: String, startNumber: Int) {
         
         print("[PythonAdaptor] . Launching Script: /Library/Application Support/Studiotools 2/Python/split.py \r")
         print("[PythonAdaptor] . Breaking out PDF Files from: \(inputFile).pdf starting numbering at \(startNumber) \r")
-        let task = NSTask()
+        let task = Process()
         task.launchPath = "/usr/bin/python"
         let args = ["/Library/Application Support/Studiotools 2/Python/split.py", "\(inputFile).pdf", "\(startNumber)"]
         task.arguments = args
